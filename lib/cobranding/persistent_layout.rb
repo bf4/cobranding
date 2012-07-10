@@ -16,7 +16,7 @@ module Cobranding
     def self.included (base)
       base.class_attribute :layout_src_attribute, :layout_url_attribute, :layout_url_options_attribute, :layout_preprocessor
     end
-    
+
     # Fetch a loyout from the service and store the ruby src code in the src attribute.
     def fetch_layout
       layout_url = send(layout_url_attribute || :url)
@@ -31,7 +31,7 @@ module Cobranding
         send("#{self.class.layout_src_attribute || :src}=", @layout.src)
       end
     end
-    
+
     # Get the layout defined by the src attribute.
     def layout
       unless @layout
@@ -43,7 +43,7 @@ module Cobranding
       end
       @layout
     end
-    
+
     def layout_html= (html)
       preprocessor = self.class.layout_preprocessor
       preprocessor = method(preprocessor) if preprocessor && !preprocessor.is_a?(Proc)

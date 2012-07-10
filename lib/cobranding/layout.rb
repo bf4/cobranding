@@ -10,7 +10,7 @@ module Cobranding
   class Layout
     QUOTED_RELATIVE_URL = /(<\w+\s((src)|(href))=(['"]))\/(.*?)(\5[^>]*?>)/i
     UNQUOTED_RELATIVE_URL = /(<\w+\s((src)|(href))=)\/(.*?)(>|(\s[^>]*?>))/i
-    
+
     class << self
       # Get the layout HTML from a service. The options can be any of the options accepted by SimpleHttpClient
       # or +:base_url+. Any relative URLs found in the HTML will be expanded to absolute URLs using either the
@@ -55,22 +55,22 @@ module Cobranding
         options.delete(:read_timeout)
         options.delete(:open_timeout)
         append_params_to_uri!(full_uri, params) if params
-        
+
         options_key, query = full_uri.to_s.split('?', 2)
         if query
           options_key << '?'
           options_key << query.split('&').sort.join('&')
         end
-        
+
         options.keys.sort{|a,b| a.to_s <=> b.to_s}.each do |key|
           options_key << " #{key}=#{options[key]}"
         end
-        
+
         "#{name}.#{Digest::MD5.hexdigest(options_key)}"
       end
-    
+
       protected
-      
+
       # Fetch the layout HTML from the service. The block is optional and will be called with the html code.
       def fetch_layout (url, options, &block)
         method = options.delete(:method) || :get
@@ -85,16 +85,16 @@ module Cobranding
         html = block.call(html) if block
         layout = new(html)
       end
-      
+
       # Expand any relative URL's found in HTML tags to be absolute URLs with the specified base.
       def expand_base_url (html, base_url)
         return html unless base_url
         base_url = "#{base_url}/" unless base_url.end_with?("/")
         html.gsub(QUOTED_RELATIVE_URL){|match| "#{$1}#{base_url}#{$6}#{$7}"}.gsub(UNQUOTED_RELATIVE_URL){|match| "#{$1}#{base_url}#{$5}#{$6}"}
       end
-      
+
       private
-      
+
       def full_uri (url, options)
         return url if url.kind_of?(URI)
         uri = URI.parse(url)
@@ -149,14 +149,14 @@ module Cobranding
         end
       end
     end
-    
+
     attr_accessor :src
-    
+
     # Create the Layout. The src will be defined from the HTML passed in.
     def initialize (html = nil)
       self.html = html if html
     end
-    
+
     # Set the src by compiling HTML into RHTML and then into Ruby code.
     def html= (html)
       self.src = compile(html)
@@ -185,9 +185,9 @@ module Cobranding
         end
       end
     end
-    
+
     protected
-    
+
     # Turn markup in the html into rhtml yield statments. Markup will be in HTML comments containing
     # listings:var where var is a variable name set using content_for.
     def rhtml (html)
