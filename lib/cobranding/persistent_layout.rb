@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Cobranding
   # This module can be mixed in to persistent objects so that layouts can be persisted to a data store. This is very
   # useful when there are only a few layouts and they don't need to be updated in real time. In this case, you can run

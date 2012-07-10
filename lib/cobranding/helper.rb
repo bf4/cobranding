@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Cobranding
   # This module gets mixed in to ActionView::Helpers so its methods are available in all Rails views.
   module Helper

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'erb'
 require 'digest/md5'
 require 'rest-client'

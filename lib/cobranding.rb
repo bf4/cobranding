@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'active_support/all' unless defined?(ActiveSupport::HashWithIndifferentAccess)
 require 'action_view'
 require 'rack'
